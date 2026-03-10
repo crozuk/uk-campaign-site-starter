@@ -113,8 +113,8 @@
 
 ### `MpLookupTeaser.astro`
 
-- Purpose: homepage MP lookup block using the shared lookup component
-- Used by: homepage
+- Purpose: optional homepage MP lookup block using the shared lookup component
+- Used by: homepage when `visibility.homeSections.mpLookupTeaser` and `mpLookup.showOnHomepage` are enabled
 
 ### `QuoteSection.astro`
 
@@ -142,7 +142,7 @@
 
 - Purpose: postcode lookup UI, result rendering, and copy-based contact prompt
 - Key props: `title`, `summary`, `compact`
-- Used by: homepage MP teaser, `/contact-your-mp`
+- Used by: `/contact-your-mp`, plus the optional homepage MP teaser when enabled
 
 ## Layout wrappers
 

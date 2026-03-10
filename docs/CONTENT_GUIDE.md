@@ -10,7 +10,7 @@ Edit `src/data/site.ts` for:
 - tagline
 - short summary
 - nav items
-- primary and secondary CTAs
+- default CTA labels and links
 - social links
 - contact details
 - legal/org details
@@ -29,11 +29,11 @@ Edit `src/data/campaign.ts` for:
 - demo stats on the homepage
 - issue cards
 - why-this-matters copy
-- MP lookup teaser copy
+- optional MP lookup teaser copy if you decide to re-enable it on the homepage
 - featured quote intro copy
 - latest posts intro copy
 - FAQ teaser intro copy
-- final CTA band copy
+- final CTA band copy and optional secondary action
 
 The homepage route itself is `src/pages/index.astro`, but most text should stay in the data file.
 
