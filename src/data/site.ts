@@ -28,7 +28,6 @@ export type BlogVisibility = {
 
 export type NavRequirement = PageKey | "blog";
 
-export type EmailMode = "none" | "mailto" | "copy" | "both";
 export type CopyTemplateSource = "global" | "campaign";
 export type CtaStyle = "soft" | "strong";
 
@@ -123,7 +122,7 @@ export const siteConfig = {
       stats: true,
       whyThisMatters: true,
       actionCards: true,
-      mpLookupTeaser: true,
+      mpLookupTeaser: false,
       quote: true,
       latestPosts: true,
       faqTeaser: true,
@@ -132,16 +131,14 @@ export const siteConfig = {
   },
   mpLookup: {
     enabled: true,
-    showOnHomepage: true,
+    showOnHomepage: false,
     pageEnabled: true,
     showParty: true,
     showProfileLink: true,
-    emailMode: "both" as EmailMode,
     copyTemplateSource: "campaign" as CopyTemplateSource,
     ctaStyle: "strong" as CtaStyle,
-    defaultRecipient: "",
     helperNote:
-      "Parliament profile links usually include constituency office contact details. The draft email here opens without a recipient so teams can choose their preferred contact route.",
+      "This starter provides a suggested message and copy action only. Supporters can use the Parliament profile and contact page to choose the best contact route.",
   },
   analytics: {
     cloudflareWebAnalytics: {

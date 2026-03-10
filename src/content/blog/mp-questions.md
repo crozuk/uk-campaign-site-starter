@@ -26,4 +26,4 @@ A fair system is not judged only by normal use. It is judged by what happens whe
 
 People lose trust fastest when responsibility becomes blurry. Providers, regulators, and redress schemes all have roles, but supporters need to know who can actually push a case forward. That is why constituency-level pressure still matters.
 
-For a real campaign, posts like this can double as email prompts, volunteer briefings, or social content. The point is to keep the argument focused enough that supporters feel ready to act.
+For a real campaign, posts like this can double as supporter prompts, volunteer briefings, or social content. The point is to keep the argument focused enough that supporters feel ready to act.

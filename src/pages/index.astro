@@ -4,7 +4,6 @@ import IssueCardsSection from "@components/sections/IssueCardsSection.astro";
 import StatsSection from "@components/sections/StatsSection.astro";
 import WhyThisMattersSection from "@components/sections/WhyThisMattersSection.astro";
 import ActionCardsSection from "@components/sections/ActionCardsSection.astro";
-import MpLookupTeaser from "@components/sections/MpLookupTeaser.astro";
 import QuoteSection from "@components/sections/QuoteSection.astro";
 import LatestPostsSection from "@components/sections/LatestPostsSection.astro";
 import FaqTeaserSection from "@components/sections/FaqTeaserSection.astro";
@@ -25,7 +24,6 @@ const faqEntries = await getFaqEntries(3);
   {isSectionEnabled("stats") && <StatsSection />}
   {isSectionEnabled("whyThisMatters") && <WhyThisMattersSection />}
   {isSectionEnabled("actionCards") && <ActionCardsSection />}
-  {isSectionEnabled("mpLookupTeaser") && <MpLookupTeaser />}
   {isSectionEnabled("quote") && quote && <QuoteSection quote={quote} />}
   {isSectionEnabled("latestPosts") && <LatestPostsSection posts={latestPosts} />}
   {isSectionEnabled("faqTeaser") && <FaqTeaserSection entries={faqEntries} />}

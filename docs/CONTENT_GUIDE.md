@@ -96,7 +96,7 @@ Current fields:
 
 Mark one quote as `featured: true` for the homepage quote section.
 
-## MP email templates
+## MP contact message templates
 
 Edit `src/data/actions.ts`.
 

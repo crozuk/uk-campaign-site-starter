@@ -33,7 +33,7 @@ npm run og:generate
 
 - Site-wide metadata, nav, socials, legal, visibility, MP lookup options: `src/data/site.ts`
 - Homepage demo content blocks: `src/data/campaign.ts`
-- CTA defaults and MP email templates: `src/data/actions.ts`
+- CTA defaults and MP contact-message templates: `src/data/actions.ts`
 - Long-form campaign pages: `src/content/pages/*.md`
 - Blog posts: `src/content/blog/*.md`
 - FAQ entries: `src/content/faq/*.md`

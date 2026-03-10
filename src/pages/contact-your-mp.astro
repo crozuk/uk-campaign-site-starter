@@ -12,26 +12,20 @@ const steps = [
     icon: "map-pin",
     title: "Find the right constituency",
     summary:
-      "The Pages Function looks up a postcode, resolves the parliamentary constituency, and returns the current MP in a normalised JSON shape.",
+      "The Pages Function looks up a postcode, resolves the parliamentary constituency, and returns the current MP in a normalised JSON shape with Parliament links when they are available.",
   },
   {
     icon: "mail",
-    title: "Open a draft or copy the message",
+    title: "Copy the message and choose the contact route",
     summary:
-      "Email behaviour is driven by config, so campaigns can use mailto, copy-to-clipboard, or both without editing the UI component.",
-  },
-  {
-    icon: "news",
-    title: "Link back to Parliament",
-    summary:
-      "Where available, supporters get a direct Parliament profile link and a contact page link so they can verify details before sending.",
+      "The starter gives supporters a suggested subject and body they can copy into the contact route they decide to use.",
   },
 ];
 ---
 
 <BaseLayout
   title="Contact your MP"
-  description="Use the built-in postcode lookup to find the correct MP and open a ready-to-adapt email draft."
+  description="Use the built-in postcode lookup to find the correct MP and copy a ready-to-adapt message."
   pathname="/contact-your-mp/"
   noIndex={disabled}
 >
@@ -41,7 +35,7 @@ const steps = [
     summary={
       disabled
         ? "The MP lookup has been turned off in the central site config."
-        : "Use the built-in postcode lookup to identify the correct MP, review a suggested message, and open a configurable contact draft."
+        : "Use the built-in postcode lookup to identify the correct MP, review a suggested message, and copy it into the contact route you want to use."
     }
     actions={disabled ? [] : [{ label: "Back to homepage", href: "/", variant: "secondary" }]}
   />

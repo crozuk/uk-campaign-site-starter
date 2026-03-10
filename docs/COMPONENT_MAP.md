@@ -140,7 +140,7 @@
 
 ### `src/components/mp/MpLookupForm.astro`
 
-- Purpose: postcode lookup UI, result rendering, configurable email/copy actions
+- Purpose: postcode lookup UI, result rendering, and copy-based contact prompt
 - Key props: `title`, `summary`, `compact`
 - Used by: homepage MP teaser, `/contact-your-mp`
 

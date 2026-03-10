@@ -71,7 +71,7 @@ src/
     pages/        long-form campaign pages rendered by [page].astro
     quotes/       supporter quote entries
   data/
-    actions.ts    CTA defaults and MP email templates
+    actions.ts    CTA defaults and MP message templates
     campaign.ts   demo homepage content blocks
     publish-check.ts
     site.ts       site metadata, nav, visibility, contact, legal, analytics
@@ -81,7 +81,6 @@ src/
     MarkdownPageLayout.astro
   lib/
     content.ts    collection helpers
-    mailto.ts     mailto helper
     seo.ts        title and URL helpers
     visibility.ts visibility logic
   pages/
@@ -177,11 +176,10 @@ The frontend behaviour is config-driven:
 - `pageEnabled`
 - `showParty`
 - `showProfileLink`
-- `emailMode`
 - `copyTemplateSource`
 - `ctaStyle`
 
-Default email templates live in `src/data/actions.ts`.
+Default MP contact-message templates live in `src/data/actions.ts`.
 
 ## Publish check
 

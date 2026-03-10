@@ -11,7 +11,7 @@ export const homepageActions = [
   {
     title: "Write to your MP in minutes",
     summary:
-      "Use the built-in postcode lookup to find the right constituency and open a ready-to-adapt draft.",
+      "Use the built-in postcode lookup to find the right constituency and copy a ready-to-adapt message.",
     label: "Contact your MP",
     href: "/contact-your-mp",
     icon: "mail",
@@ -37,7 +37,7 @@ export const homepageActions = [
   },
 ] as const satisfies CampaignAction[];
 
-export const mpEmailTemplates = {
+export const mpContactTemplates = {
   global: {
     subject: "Constituent request: please respond on fair household bills",
     body: `Dear [MP name],

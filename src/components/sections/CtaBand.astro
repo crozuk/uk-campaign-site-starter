@@ -2,21 +2,28 @@
 import Button from "@components/ui/Button.astro";
 import Reveal from "@components/motion/Reveal.astro";
 import { campaignContent } from "@data/campaign";
+
+const ctaBand = campaignContent.ctaBand;
+const hasSecondaryAction = "secondaryHref" in ctaBand && "secondaryLabel" in ctaBand;
 ---
 
 <section class="cta-band">
   <div class="container">
     <Reveal class="cta-band__panel surface">
-      <span class="eyebrow">{campaignContent.ctaBand.eyebrow}</span>
-      <h2>{campaignContent.ctaBand.title}</h2>
-      <p>{campaignContent.ctaBand.summary}</p>
+      <span class="eyebrow">{ctaBand.eyebrow}</span>
+      <h2>{ctaBand.title}</h2>
+      <p>{ctaBand.summary}</p>
       <div class="cta-band__actions">
-        <Button href={campaignContent.ctaBand.primaryHref} variant="primary">
-          {campaignContent.ctaBand.primaryLabel}
+        <Button href={ctaBand.primaryHref} variant="primary">
+          {ctaBand.primaryLabel}
         </Button>
-        <Button href={campaignContent.ctaBand.secondaryHref} variant="secondary">
-          {campaignContent.ctaBand.secondaryLabel}
-        </Button>
+        {
+          hasSecondaryAction && (
+              <Button href={ctaBand.secondaryHref} variant="secondary">
+                {ctaBand.secondaryLabel}
+              </Button>
+            )
+        }
       </div>
     </Reveal>
   </div>

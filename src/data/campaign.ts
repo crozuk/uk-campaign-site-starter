@@ -81,12 +81,10 @@ export const campaignContent = {
   },
   ctaBand: {
     eyebrow: "Reusable final call to action",
-    title: "Build once. Reframe fast. Publish responsibly.",
+    title: "Help supporters contact their MP with less friction.",
     summary:
-      "This starter is designed for repeat use: central config, clean content files, a theme token system, and a production check that stops demo content slipping into a live campaign site.",
-    primaryLabel: "Start customising the content",
-    primaryHref: "/about",
-    secondaryLabel: "Review the content guide",
-    secondaryHref: "/blog",
+      "Keep the homepage focused, then send people to a dedicated MP contact flow with postcode lookup, Parliament links where available, and copy-ready messaging.",
+    primaryLabel: "Go to the MP contact tool",
+    primaryHref: "/contact-your-mp",
   },
 };

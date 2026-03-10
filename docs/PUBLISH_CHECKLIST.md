@@ -32,8 +32,8 @@ Use this before switching from demo mode to a real campaign launch.
 - Test `/contact-your-mp`
 - Test at least two valid UK postcodes
 - Check Parliament profile links
-- Review email template text in `src/data/actions.ts`
-- Confirm `emailMode`, `showParty`, and `showProfileLink`
+- Review MP contact message text in `src/data/actions.ts`
+- Confirm `showParty`, `showProfileLink`, and message copy
 
 ## Build and deployment
 
