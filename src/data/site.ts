@@ -50,7 +50,7 @@ export const siteConfig = {
   tagline: "Transparent essential bills. Stronger consumer protection. Warmer homes.",
   shortSummary:
     "A fictional UK public-interest campaign used as demo content for this reusable starter. Replace all copy, contact details, and legal information before publishing.",
-  siteUrl: "https://replace-me.example.com",
+  siteUrl: "https://uk-campaign-site-starter.pages.dev",
   locale: "en-GB",
   seo: {
     defaultTitle: "Fair Bills UK",
