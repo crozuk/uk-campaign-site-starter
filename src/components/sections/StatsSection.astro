@@ -1,0 +1,30 @@
+---
+import Reveal from "@components/motion/Reveal.astro";
+import { campaignContent } from "@data/campaign";
+---
+
+<section class="with-top-border">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Example statistics</span>
+      <h2>Use proof points without overloading the page</h2>
+      <p class="section-copy">
+        These numbers are intentionally marked as examples. Replace them with sourced campaign data
+        before a live launch.
+      </p>
+    </div>
+
+    <div class="stats-grid">
+      {
+        campaignContent.stats.map((stat, index) => (
+          <Reveal delay={index * 80}>
+            <article class="stat-card surface">
+              <div class="stat-card__value">{stat.value}</div>
+              <p class="muted">{stat.label}</p>
+            </article>
+          </Reveal>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,44 @@
+---
+import BaseLayout from "@components/layout/BaseLayout.astro";
+import TagList from "@components/ui/TagList.astro";
+import ShareLinks from "@components/ui/ShareLinks.astro";
+
+const { title, summary, date, tags = [], coverStyle = "mesh", pathname } = Astro.props as {
+  title: string;
+  summary: string;
+  date: Date;
+  tags?: string[];
+  coverStyle?: "mesh" | "signal" | "horizon";
+  pathname: string;
+};
+
+const formattedDate = new Intl.DateTimeFormat("en-GB", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+}).format(date);
+---
+
+<BaseLayout title={title} description={summary} pathname={pathname}>
+  <section class="page-hero">
+    <div class="container stack">
+      <span class="eyebrow">Campaign update</span>
+      <div class={`blog-card__cover blog-card__cover--${coverStyle} surface has-float`}></div>
+      <div class="section-header">
+        <h1>{title}</h1>
+        <p class="section-copy">{summary}</p>
+        <div class="blog-meta">
+          <span>{formattedDate}</span>
+        </div>
+        <TagList tags={tags} />
+      </div>
+      <ShareLinks title={title} pathname={pathname} />
+    </div>
+  </section>
+
+  <section>
+    <div class="content-shell surface prose content-panel">
+      <slot />
+    </div>
+  </section>
+</BaseLayout>

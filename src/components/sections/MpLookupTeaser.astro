@@ -1,0 +1,13 @@
+---
+import Reveal from "@components/motion/Reveal.astro";
+import MpLookupForm from "@components/mp/MpLookupForm.astro";
+import { campaignContent } from "@data/campaign";
+---
+
+<section>
+  <div class="container">
+    <Reveal>
+      <MpLookupForm compact={true} title={campaignContent.mpLookup.title} summary={campaignContent.mpLookup.summary} />
+    </Reveal>
+  </div>
+</section>

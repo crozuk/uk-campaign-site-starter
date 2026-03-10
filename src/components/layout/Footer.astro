@@ -1,0 +1,66 @@
+---
+import { siteConfig } from "@data/site";
+import { getVisibleNavigationItems } from "@lib/visibility";
+
+const navigation = getVisibleNavigationItems();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__top">
+      <div class="stack">
+        <span class="eyebrow">{siteConfig.demoNotice}</span>
+        <h2>{siteConfig.campaignName}</h2>
+        <p class="muted">{siteConfig.shortSummary}</p>
+      </div>
+    </div>
+
+    <div class="site-footer__grid">
+      <section class="site-footer__group" aria-labelledby="footer-navigation">
+        <h3 id="footer-navigation">Navigation</h3>
+        <ul class="site-footer__list">
+          {
+            navigation.map((item) => (
+              <li>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="site-footer__group" aria-labelledby="footer-contact">
+        <h3 id="footer-contact">Contact</h3>
+        <ul class="site-footer__list">
+          <li>
+            <a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>
+          </li>
+          <li>
+            <a href={`mailto:${siteConfig.contact.pressEmail}`}>{siteConfig.contact.pressEmail}</a>
+          </li>
+          <li>{siteConfig.contact.phone}</li>
+        </ul>
+      </section>
+
+      <section class="site-footer__group" aria-labelledby="footer-socials">
+        <h3 id="footer-socials">Social</h3>
+        <ul class="site-footer__list">
+          {
+            siteConfig.socials.map((link) => (
+              <li>
+                <a href={link.href} target="_blank" rel="noreferrer">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </div>
+
+    <p class="site-footer__meta">
+      {siteConfig.legal.organisationName} · {siteConfig.legal.legalEntity} · Company number{" "}
+      {siteConfig.legal.companyNumber}
+    </p>
+  </div>
+</footer>

@@ -1,0 +1,13 @@
+---
+const { href, class: className, title } = Astro.props as {
+  href?: string;
+  class?: string;
+  title?: string;
+};
+
+const Tag = href ? "a" : "article";
+---
+
+<Tag class:list={["card surface", className]} href={href} aria-label={title}>
+  <slot />
+</Tag>

@@ -1,0 +1,27 @@
+---
+import Reveal from "@components/motion/Reveal.astro";
+import { campaignContent } from "@data/campaign";
+---
+
+<section>
+  <div class="container">
+    <Reveal class="why-grid surface">
+      <div class="stack">
+        <span class="eyebrow">Why this matters</span>
+        <h2>{campaignContent.whyThisMatters.title}</h2>
+        <p class="section-copy">{campaignContent.whyThisMatters.intro}</p>
+      </div>
+
+      <ul class="why-grid__list">
+        {
+          campaignContent.whyThisMatters.bullets.map((bullet) => (
+            <li>
+              <strong>Campaign pattern</strong>
+              <span class="muted">{bullet}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </Reveal>
+  </div>
+</section>

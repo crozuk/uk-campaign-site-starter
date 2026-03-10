@@ -1,0 +1,31 @@
+---
+import Reveal from "@components/motion/Reveal.astro";
+import Card from "@components/ui/Card.astro";
+import { campaignContent } from "@data/campaign";
+---
+
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Issue framing</span>
+      <h2>Show the problem in three clear beats</h2>
+      <p class="section-copy">
+        The demo content is written to feel realistic while still acting as a reusable pattern for other
+        UK campaigns.
+      </p>
+    </div>
+
+    <div class="issue-grid">
+      {
+        campaignContent.issueCards.map((item, index) => (
+          <Reveal delay={index * 70}>
+            <Card>
+              <h3 class="card__title">{item.title}</h3>
+              <p class="muted">{item.summary}</p>
+            </Card>
+          </Reveal>
+        ))
+      }
+    </div>
+  </div>
+</section>

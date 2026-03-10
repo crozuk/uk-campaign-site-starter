@@ -1,0 +1,46 @@
+---
+import BaseLayout from "@components/layout/BaseLayout.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import Card from "@components/ui/Card.astro";
+import TagList from "@components/ui/TagList.astro";
+import { getBlogPosts } from "@lib/content";
+
+const posts = await getBlogPosts();
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(date);
+---
+
+<BaseLayout
+  title="Blog"
+  description="Markdown-powered campaign updates, explainers, and briefings."
+  pathname="/blog/"
+>
+  <PageHero
+    eyebrow="Markdown blog"
+    title="Campaign updates and explainers"
+    summary="The blog is designed to be easy to hide from navigation, but ready from day one for campaign briefings and editorial updates."
+  />
+
+  <section>
+    <div class="container blog-grid">
+      {
+        posts.map((post) => (
+          <Card href={`/blog/${post.slug}/`} title={post.data.title} class="blog-card">
+            <div class={`blog-card__cover blog-card__cover--${post.data.coverStyle ?? "mesh"} surface`}></div>
+            <div class="blog-meta">
+              <span>{formatDate(post.data.date)}</span>
+            </div>
+            <h2 class="card__title">{post.data.title}</h2>
+            <p class="muted">{post.data.summary}</p>
+            <TagList tags={post.data.tags ?? []} />
+          </Card>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

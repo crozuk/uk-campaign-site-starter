@@ -1,0 +1,61 @@
+---
+import Reveal from "@components/motion/Reveal.astro";
+import Button from "@components/ui/Button.astro";
+import Card from "@components/ui/Card.astro";
+import TagList from "@components/ui/TagList.astro";
+import { campaignContent } from "@data/campaign";
+
+const { posts = [] } = Astro.props as {
+  posts?: Array<{
+    slug: string;
+    data: {
+      title: string;
+      date: Date;
+      summary: string;
+      tags?: string[];
+      coverStyle?: "mesh" | "signal" | "horizon";
+    };
+  }>;
+};
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  }).format(date);
+---
+
+{
+  posts.length > 0 && (
+    <section>
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">{campaignContent.latestPosts.title}</span>
+          <h2>Publish explainers, updates, and briefings in markdown</h2>
+          <p class="section-copy">{campaignContent.latestPosts.summary}</p>
+        </div>
+
+        <div class="blog-grid">
+          {posts.map((post, index) => (
+            <Reveal delay={index * 80}>
+              <Card href={`/blog/${post.slug}/`} title={post.data.title} class="blog-card">
+                <div class={`blog-card__cover blog-card__cover--${post.data.coverStyle ?? "mesh"} surface`}></div>
+                <div class="blog-meta">
+                  <span>{formatDate(post.data.date)}</span>
+                </div>
+                <h3 class="card__title">{post.data.title}</h3>
+                <p class="muted">{post.data.summary}</p>
+                <TagList tags={post.data.tags ?? []} />
+              </Card>
+            </Reveal>
+          ))}
+        </div>
+
+        <div class="section-actions">
+          <Button href="/blog" variant="secondary">Browse all posts</Button>
+        </div>
+      </div>
+    </section>
+  )
+}

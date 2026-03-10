@@ -1,0 +1,32 @@
+---
+import Reveal from "@components/motion/Reveal.astro";
+import { campaignContent } from "@data/campaign";
+
+const { quote } = Astro.props as {
+  quote: {
+    data: {
+      name: string;
+      role: string;
+      location?: string;
+      quote: string;
+    };
+  };
+};
+---
+
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">{campaignContent.featuredQuote.title}</span>
+      <p class="section-copy">{campaignContent.featuredQuote.intro}</p>
+    </div>
+
+    <Reveal class="quote-panel surface">
+      <blockquote>“{quote.data.quote}”</blockquote>
+      <p class="quote-panel__meta">
+        {quote.data.name}, {quote.data.role}
+        {quote.data.location && ` · ${quote.data.location}`}
+      </p>
+    </Reveal>
+  </div>
+</section>

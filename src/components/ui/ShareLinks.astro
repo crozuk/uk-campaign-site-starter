@@ -1,0 +1,31 @@
+---
+import { absoluteUrl } from "@lib/seo";
+
+const { title, pathname } = Astro.props as {
+  title: string;
+  pathname: string;
+};
+
+const url = absoluteUrl(pathname);
+const encodedUrl = encodeURIComponent(url);
+const encodedTitle = encodeURIComponent(title);
+const emailHref = `mailto:?subject=${encodedTitle}&body=${encodeURIComponent(`${title}\n\n${url}`)}`;
+---
+
+<div class="share-links" aria-label="Share this page">
+  <a
+    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`}
+    rel="noreferrer"
+    target="_blank"
+  >
+    Share on LinkedIn
+  </a>
+  <a
+    href={`https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`}
+    rel="noreferrer"
+    target="_blank"
+  >
+    Share on X
+  </a>
+  <a href={emailHref}>Share by email</a>
+</div>

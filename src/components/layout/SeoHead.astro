@@ -1,0 +1,55 @@
+---
+import { absoluteUrl, buildPageTitle } from "@lib/seo";
+import { siteConfig } from "@data/site";
+
+const {
+  title,
+  description = siteConfig.seo.defaultDescription,
+  image = siteConfig.seo.ogImage,
+  pathname = Astro.url.pathname,
+  noIndex = false,
+} = Astro.props;
+
+const canonical = absoluteUrl(pathname);
+const absoluteImage = absoluteUrl(image);
+const fullTitle = buildPageTitle(title);
+const manualAnalytics =
+  siteConfig.analytics.cloudflareWebAnalytics.enabled &&
+  siteConfig.analytics.cloudflareWebAnalytics.mode === "manual" &&
+  siteConfig.analytics.cloudflareWebAnalytics.manualBeaconToken;
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<meta name="theme-color" content="#0e5e57" />
+<link rel="canonical" href={canonical} />
+<link rel="icon" href="/favicons/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700;800&display=swap"
+  rel="stylesheet"
+/>
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={siteConfig.campaignName} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={absoluteImage} />
+<meta name="twitter:card" content={siteConfig.seo.twitterCard} />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={absoluteImage} />
+{noIndex && <meta name="robots" content="noindex, nofollow" />}
+{
+  manualAnalytics && (
+    <script
+      is:inline
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon={JSON.stringify({
+        token: siteConfig.analytics.cloudflareWebAnalytics.manualBeaconToken,
+      })}
+    ></script>
+  )
+}

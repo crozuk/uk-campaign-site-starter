@@ -1,0 +1,59 @@
+---
+import BaseLayout from "@components/layout/BaseLayout.astro";
+import MpLookupForm from "@components/mp/MpLookupForm.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import FeatureGrid from "@components/ui/FeatureGrid.astro";
+import { isPageEnabled } from "@lib/visibility";
+
+const disabled = !isPageEnabled("contact-your-mp");
+
+const steps = [
+  {
+    title: "Find the right constituency",
+    summary:
+      "The Pages Function looks up a postcode, resolves the parliamentary constituency, and returns the current MP in a normalised JSON shape.",
+  },
+  {
+    title: "Open a draft or copy the message",
+    summary:
+      "Email behaviour is driven by config, so campaigns can use mailto, copy-to-clipboard, or both without editing the UI component.",
+  },
+  {
+    title: "Link back to Parliament",
+    summary:
+      "Where available, supporters get a direct Parliament profile link and a contact page link so they can verify details before sending.",
+  },
+];
+---
+
+<BaseLayout
+  title="Contact your MP"
+  description="Use the built-in postcode lookup to find the correct MP and open a ready-to-adapt email draft."
+  pathname="/contact-your-mp/"
+  noIndex={disabled}
+>
+  <PageHero
+    eyebrow="MP contact tool"
+    title={disabled ? "This page is currently disabled" : "Contact your MP"}
+    summary={
+      disabled
+        ? "The MP lookup has been turned off in the central site config."
+        : "Use the built-in postcode lookup to identify the correct MP, review a suggested message, and open a configurable contact draft."
+    }
+    actions={disabled ? [] : [{ label: "Back to homepage", href: "/", variant: "secondary" }]}
+  />
+
+  {
+    !disabled && (
+      <section>
+        <div class="container stack">
+          <MpLookupForm
+            title="Find your MP by postcode"
+            summary="This lookup uses Cloudflare Pages Functions for the API layer while keeping the rest of the site static-first."
+          />
+          <FeatureGrid items={steps} />
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>

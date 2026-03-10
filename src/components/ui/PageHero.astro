@@ -1,0 +1,33 @@
+---
+import Button from "@components/ui/Button.astro";
+
+type PageAction = {
+  label: string;
+  href: string;
+  variant?: "primary" | "secondary" | "ghost" | "soft" | "strong";
+};
+
+const { eyebrow, title, summary, actions = [] } = Astro.props as {
+  eyebrow?: string;
+  title: string;
+  summary?: string;
+  actions?: PageAction[];
+};
+---
+
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero__panel surface">
+      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+      <h1>{title}</h1>
+      {summary && <p class="section-copy">{summary}</p>}
+      {
+        actions.length > 0 && (
+          <div class="hero__actions">
+            {actions.map((action) => <Button href={action.href} variant={action.variant ?? "primary"}>{action.label}</Button>)}
+          </div>
+        )
+      }
+    </div>
+  </div>
+</section>

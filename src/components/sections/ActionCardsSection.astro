@@ -1,0 +1,37 @@
+---
+import Reveal from "@components/motion/Reveal.astro";
+import Button from "@components/ui/Button.astro";
+import Card from "@components/ui/Card.astro";
+import { homepageActions } from "@data/actions";
+---
+
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Action pathways</span>
+      <h2>Offer multiple routes into the campaign</h2>
+      <p class="section-copy">
+        Most campaign sites need a quick action, a deeper participation route, and a way to learn more
+        before acting.
+      </p>
+    </div>
+
+    <div class="action-grid">
+      {
+        homepageActions.map((action, index) => (
+          <Reveal delay={index * 80}>
+            <Card>
+              <h3 class="card__title">{action.title}</h3>
+              <p class="muted">{action.summary}</p>
+              <div>
+                <Button href={action.href} variant={action.emphasis === "strong" ? "strong" : "soft"}>
+                  {action.label}
+                </Button>
+              </div>
+            </Card>
+          </Reveal>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,40 @@
+{
+  "name": "uk-campaign-site-starter",
+  "version": "0.1.0",
+  "description": "Reusable Astro starter for UK advocacy and campaign websites on Cloudflare Pages.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "dev:pages": "npm run build && wrangler pages dev dist --compatibility-date=2026-03-09 --port 8788 --live-reload",
+    "build": "npm run prepublish:check && astro build",
+    "build:production": "PUBLISH_CHECK_MODE=production npm run build",
+    "preview": "PUBLISH_CHECK_MODE=preview npm run build && wrangler pages dev dist --compatibility-date=2026-03-09 --port 8788 --live-reload",
+    "typecheck": "astro check",
+    "check": "npm run typecheck && npm run build",
+    "prepublish:check": "node scripts/prepublish-check.mjs",
+    "prepublish:check:dev": "PUBLISH_CHECK_MODE=development node scripts/prepublish-check.mjs",
+    "prepublish:check:preview": "PUBLISH_CHECK_MODE=preview node scripts/prepublish-check.mjs",
+    "prepublish:check:production": "PUBLISH_CHECK_MODE=production node scripts/prepublish-check.mjs",
+    "og:generate": "node scripts/generate-og.mjs"
+  },
+  "keywords": [
+    "astro",
+    "cloudflare-pages",
+    "campaign-site",
+    "uk-advocacy",
+    "starter-template"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.0",
+    "astro": "^5.18.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.6",
+    "@types/node": "^25.4.0",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.71.0"
+  }
+}

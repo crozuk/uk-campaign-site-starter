@@ -1,0 +1,9 @@
+---
+import { themeCssVariables } from "@data/theme";
+
+const rootCss = Object.entries(themeCssVariables)
+  .map(([name, value]) => `${name}: ${value};`)
+  .join("\n");
+---
+
+<style is:global set:html={`:root {\n${rootCss}\n}`}></style>

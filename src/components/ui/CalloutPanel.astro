@@ -1,0 +1,12 @@
+---
+const { title, body, tone = "soft" } = Astro.props as {
+  title: string;
+  body: string;
+  tone?: "soft" | "strong";
+};
+---
+
+<aside class:list={["callout-panel surface", `callout-panel--${tone}`]}>
+  <h3>{title}</h3>
+  <p class="muted">{body}</p>
+</aside>

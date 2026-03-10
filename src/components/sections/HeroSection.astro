@@ -1,0 +1,53 @@
+---
+import Reveal from "@components/motion/Reveal.astro";
+import Button from "@components/ui/Button.astro";
+import { campaignContent } from "@data/campaign";
+import { siteConfig } from "@data/site";
+---
+
+<section class="hero">
+  <div class="container hero__grid">
+    <Reveal class="hero__copy">
+      <span class="eyebrow">{campaignContent.hero.eyebrow}</span>
+      <h1>{campaignContent.hero.title}</h1>
+      <p class="hero__summary">{campaignContent.hero.summary}</p>
+
+      <div class="hero__actions">
+        <Button href={siteConfig.ctas.primary.href} variant="primary">
+          {siteConfig.ctas.primary.label}
+        </Button>
+        <Button href={siteConfig.ctas.secondary.href} variant="secondary">
+          {siteConfig.ctas.secondary.label}
+        </Button>
+      </div>
+
+      <div class="hero__pills" aria-label="Campaign themes">
+        {
+          campaignContent.hero.supportingPoints.map((point) => <span class="pill">{point}</span>)
+        }
+      </div>
+    </Reveal>
+
+    <Reveal class="hero__visual" delay={120}>
+      <div class="hero__card surface">
+        <img
+          class="has-float"
+          src="/placeholders/abstract-flow.svg"
+          alt=""
+          width="540"
+          height="340"
+        />
+        <div class="hero__stat-grid">
+          <article class="stat-card surface">
+            <div class="stat-card__value">{campaignContent.hero.primaryStat.value}</div>
+            <p class="muted">{campaignContent.hero.primaryStat.label}</p>
+          </article>
+          <article class="stat-card surface">
+            <div class="stat-card__value">{campaignContent.hero.secondaryStat.value}</div>
+            <p class="muted">{campaignContent.hero.secondaryStat.label}</p>
+          </article>
+        </div>
+      </div>
+    </Reveal>
+  </div>
+</section>

@@ -1,0 +1,42 @@
+---
+type ButtonVariant = "primary" | "secondary" | "ghost" | "soft" | "strong";
+type ButtonSize = "base" | "small";
+
+const {
+  href,
+  variant = "primary",
+  size = "base",
+  type = "button",
+  target,
+  rel,
+  icon = false,
+  class: className,
+} = Astro.props as {
+  href?: string;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  type?: "button" | "submit" | "reset";
+  target?: string;
+  rel?: string;
+  icon?: boolean;
+  class?: string;
+};
+
+const classes = ["button", `button--${variant}`, size === "small" && "button--small", className];
+const hasExternalTarget = target === "_blank";
+const safeRel = rel ?? (hasExternalTarget ? "noreferrer" : undefined);
+---
+
+{
+  href ? (
+    <a class:list={classes} href={href} target={target} rel={safeRel}>
+      <slot />
+      {icon && <span class="button__arrow" aria-hidden="true">↗</span>}
+    </a>
+  ) : (
+    <button class:list={classes} type={type}>
+      <slot />
+      {icon && <span class="button__arrow" aria-hidden="true">→</span>}
+    </button>
+  )
+}

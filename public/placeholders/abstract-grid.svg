@@ -1,0 +1,22 @@
+<svg width="960" height="640" viewBox="0 0 960 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="640" rx="32" fill="#F7F5EF"/>
+  <g opacity="0.18" stroke="#0E5E57">
+    <path d="M80 0V640"/>
+    <path d="M176 0V640"/>
+    <path d="M272 0V640"/>
+    <path d="M368 0V640"/>
+    <path d="M464 0V640"/>
+    <path d="M560 0V640"/>
+    <path d="M656 0V640"/>
+    <path d="M752 0V640"/>
+    <path d="M848 0V640"/>
+    <path d="M0 96H960"/>
+    <path d="M0 192H960"/>
+    <path d="M0 288H960"/>
+    <path d="M0 384H960"/>
+    <path d="M0 480H960"/>
+    <path d="M0 576H960"/>
+  </g>
+  <circle cx="698" cy="170" r="140" fill="#D7EDE8"/>
+  <circle cx="236" cy="470" r="120" fill="#F4E2C5"/>
+</svg>

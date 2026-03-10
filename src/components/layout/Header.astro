@@ -1,0 +1,48 @@
+---
+import { siteConfig } from "@data/site";
+import { getVisibleNavigationItems } from "@lib/visibility";
+import Button from "@components/ui/Button.astro";
+
+const pathname = Astro.url.pathname;
+const navigation = getVisibleNavigationItems();
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="/">
+      <span class="eyebrow brand__notice">{siteConfig.demoNotice}</span>
+      <span class="brand__name">{siteConfig.campaignName}</span>
+      <span class="brand__tagline">{siteConfig.tagline}</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      {
+        navigation.map((item) => (
+          <a href={item.href} aria-current={pathname === item.href ? "page" : undefined}>
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <Button href={siteConfig.ctas.primary.href} variant="primary">
+      {siteConfig.ctas.primary.label}
+    </Button>
+
+    <details class="site-menu">
+      <summary>Menu</summary>
+      <nav aria-label="Mobile">
+        {
+          navigation.map((item) => (
+            <a href={item.href} aria-current={pathname === item.href ? "page" : undefined}>
+              {item.label}
+            </a>
+          ))
+        }
+        <Button href={siteConfig.ctas.primary.href} variant="primary">
+          {siteConfig.ctas.primary.label}
+        </Button>
+      </nav>
+    </details>
+  </div>
+</header>

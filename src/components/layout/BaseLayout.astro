@@ -1,0 +1,41 @@
+---
+import "@styles/tokens.css";
+import "@styles/global.css";
+import "@styles/motion.css";
+import "@styles/utilities.css";
+import "@styles/components.css";
+
+import { siteConfig } from "@data/site";
+import Footer from "@components/layout/Footer.astro";
+import Header from "@components/layout/Header.astro";
+import SeoHead from "@components/layout/SeoHead.astro";
+import ThemeVars from "@components/layout/ThemeVars.astro";
+import MotionScripts from "@components/motion/MotionScripts.astro";
+
+const { title, description, image, pathname, noIndex = false } = Astro.props;
+---
+
+<!doctype html>
+<html lang={siteConfig.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <ThemeVars />
+    <SeoHead
+      title={title}
+      description={description}
+      image={image}
+      pathname={pathname}
+      noIndex={noIndex}
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+    <MotionScripts />
+  </body>
+</html>

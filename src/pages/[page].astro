@@ -1,0 +1,36 @@
+---
+import { render } from "astro:content";
+import MarkdownPageLayout from "@layouts/MarkdownPageLayout.astro";
+import { getCampaignPages } from "@lib/content";
+import { isPageEnabled } from "@lib/visibility";
+import type { PageKey } from "@data/site";
+
+export async function getStaticPaths() {
+  const entries = await getCampaignPages();
+
+  return entries
+    .filter((entry) => isPageEnabled(entry.slug as PageKey))
+    .map((entry) => ({
+      params: { page: entry.slug },
+      props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<MarkdownPageLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  eyebrow={entry.data.heroEyebrow}
+  summary={entry.data.summary}
+  calloutTitle={entry.data.calloutTitle}
+  calloutBody={entry.data.calloutBody}
+  calloutTone={entry.data.calloutTone}
+  ctaLabel={entry.data.ctaLabel}
+  ctaHref={entry.data.ctaHref}
+  pathname={`/${entry.slug}/`}
+>
+  <Content />
+</MarkdownPageLayout>

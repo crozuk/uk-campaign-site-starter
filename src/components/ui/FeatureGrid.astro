@@ -1,0 +1,21 @@
+---
+type FeatureItem = {
+  title: string;
+  summary: string;
+};
+
+const { items } = Astro.props as {
+  items: FeatureItem[];
+};
+---
+
+<div class="feature-grid">
+  {
+    items.map((item) => (
+      <article class="card surface">
+        <h3 class="card__title">{item.title}</h3>
+        <p class="muted">{item.summary}</p>
+      </article>
+    ))
+  }
+</div>

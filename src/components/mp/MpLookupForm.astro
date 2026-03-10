@@ -1,0 +1,263 @@
+---
+import Button from "@components/ui/Button.astro";
+import { mpEmailTemplates } from "@data/actions";
+import { siteConfig } from "@data/site";
+
+const {
+  title = "Find your MP",
+  summary = "Enter a UK postcode to look up the current parliamentary constituency and MP.",
+  compact = false,
+} = Astro.props as {
+  title?: string;
+  summary?: string;
+  compact?: boolean;
+};
+
+const templateSource =
+  siteConfig.mpLookup.copyTemplateSource === "campaign"
+    ? mpEmailTemplates.campaign
+    : mpEmailTemplates.global;
+
+const componentConfig = {
+  endpoint: "/api/mp-lookup",
+  showParty: siteConfig.mpLookup.showParty,
+  showProfileLink: siteConfig.mpLookup.showProfileLink,
+  emailMode: siteConfig.mpLookup.emailMode,
+  defaultRecipient: siteConfig.mpLookup.defaultRecipient,
+  helperNote: siteConfig.mpLookup.helperNote,
+  template: templateSource,
+};
+---
+
+<div class:list={["mp-lookup surface", compact && "mp-lookup--compact"]} data-mp-lookup>
+  <div class="stack">
+    <span class="eyebrow">Postcode lookup</span>
+    <h2>{title}</h2>
+    <p class="muted">{summary}</p>
+  </div>
+
+  <form class="mp-lookup__form" data-mp-form novalidate>
+    <label for="postcode">UK postcode</label>
+    <div class="mp-lookup__controls">
+      <input
+        id="postcode"
+        name="postcode"
+        type="text"
+        inputmode="text"
+        autocomplete="postal-code"
+        placeholder="SW1A 0AA"
+        required
+      />
+      <Button type="submit" variant={siteConfig.mpLookup.ctaStyle === "strong" ? "strong" : "soft"}>
+        Find my MP
+      </Button>
+    </div>
+    <p class="muted">Uses postcodes.io and UK Parliament data. No postcode is stored by this starter.</p>
+    <p class="mp-lookup__status" data-mp-status aria-live="polite"></p>
+  </form>
+
+  <div class="mp-result surface" data-mp-result hidden>
+    <div class="mp-result__facts">
+      <div class="mp-result__fact">
+        <div class="mp-result__label">MP</div>
+        <div data-mp-name></div>
+      </div>
+      <div class="mp-result__fact">
+        <div class="mp-result__label">Constituency</div>
+        <div data-mp-constituency></div>
+      </div>
+      <div class="mp-result__fact" data-mp-party-wrap>
+        <div class="mp-result__label">Party</div>
+        <div data-mp-party></div>
+      </div>
+    </div>
+
+    <div class="cluster" data-mp-links>
+      <a data-mp-profile href="#" hidden rel="noreferrer" target="_blank">Parliament profile</a>
+      <a data-mp-contact href="#" hidden rel="noreferrer" target="_blank">Parliament contact page</a>
+    </div>
+
+    <div class="mp-result__copy" data-mp-copy-block hidden>
+      <div class="mp-result__label">Suggested subject</div>
+      <p data-mp-subject></p>
+      <div class="mp-result__label">Suggested body</div>
+      <pre data-mp-body></pre>
+      <p class="muted" data-mp-helper></p>
+    </div>
+
+    <div class="mp-result__actions" data-mp-actions hidden>
+      <a class="button button--primary" data-mp-mailto href="#" hidden>Open draft email</a>
+      <button class="button button--ghost" data-mp-copy type="button" hidden>Copy subject and body</button>
+    </div>
+  </div>
+
+  <script
+    is:inline
+    type="application/json"
+    data-mp-config
+    set:html={JSON.stringify(componentConfig)}
+  ></script>
+</div>
+
+<script is:inline>
+  const initialiseMpLookupWidgets = () => {
+    document.querySelectorAll("[data-mp-lookup]").forEach((root) => {
+      if (root.dataset.initialised === "true") {
+        return;
+      }
+
+      root.dataset.initialised = "true";
+
+      const configElement = root.querySelector("[data-mp-config]");
+      const form = root.querySelector("[data-mp-form]");
+      const status = root.querySelector("[data-mp-status]");
+      const result = root.querySelector("[data-mp-result]");
+      const name = root.querySelector("[data-mp-name]");
+      const constituency = root.querySelector("[data-mp-constituency]");
+      const partyWrap = root.querySelector("[data-mp-party-wrap]");
+      const party = root.querySelector("[data-mp-party]");
+      const profileLink = root.querySelector("[data-mp-profile]");
+      const contactLink = root.querySelector("[data-mp-contact]");
+      const actions = root.querySelector("[data-mp-actions]");
+      const mailtoLink = root.querySelector("[data-mp-mailto]");
+      const copyButton = root.querySelector("[data-mp-copy]");
+      const copyBlock = root.querySelector("[data-mp-copy-block]");
+      const subjectElement = root.querySelector("[data-mp-subject]");
+      const bodyElement = root.querySelector("[data-mp-body]");
+      const helperElement = root.querySelector("[data-mp-helper]");
+
+      if (!configElement || !form || !status || !result || !name || !constituency || !partyWrap || !party) {
+        return;
+      }
+
+      const config = JSON.parse(configElement.textContent || "{}");
+
+      const setStatus = (message, state = "idle") => {
+        status.textContent = message;
+        status.dataset.state = state;
+      };
+
+      const applyTemplate = (template, values) =>
+        template.replace(/\[(MP name|Your postcode|Constituency)\]/g, (token) => values[token] || token);
+
+      const buildMailto = (recipient, subject, body) => {
+        const params = new URLSearchParams({ subject, body });
+        return `mailto:${recipient}?${params.toString()}`;
+      };
+
+      const copyText = async (text) => {
+        if (!navigator.clipboard?.writeText) {
+          throw new Error("Clipboard access is not available in this browser.");
+        }
+
+        await navigator.clipboard.writeText(text);
+      };
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        const rawPostcode = String(formData.get("postcode") || "").trim();
+
+        if (!rawPostcode) {
+          setStatus("Enter a postcode to continue.", "error");
+          return;
+        }
+
+        setStatus("Looking up your constituency and MP...", "loading");
+        result.hidden = true;
+
+        try {
+          const response = await fetch(`${config.endpoint}?postcode=${encodeURIComponent(rawPostcode)}`);
+          const payload = await response.json();
+
+          if (!response.ok || !payload.success) {
+            throw new Error(payload.error || "Unable to find an MP for that postcode.");
+          }
+
+          const values = {
+            "[MP name]": payload.mp.name,
+            "[Your postcode]": payload.postcode,
+            "[Constituency]": payload.mp.constituency,
+          };
+
+          const subject = applyTemplate(config.template.subject, values);
+          const body = applyTemplate(config.template.body, values);
+          const copyPayload = `Subject: ${subject}\n\n${body}`;
+
+          name.textContent = payload.mp.name;
+          constituency.textContent = payload.mp.constituency;
+          party.textContent = payload.mp.party || "Not shown";
+          partyWrap.hidden = !config.showParty;
+
+          if (profileLink) {
+            profileLink.hidden = !(config.showProfileLink && payload.mp.profileUrl);
+            if (payload.mp.profileUrl) {
+              profileLink.href = payload.mp.profileUrl;
+            }
+          }
+
+          if (contactLink) {
+            contactLink.hidden = !(config.showProfileLink && payload.mp.contactUrl);
+            if (payload.mp.contactUrl) {
+              contactLink.href = payload.mp.contactUrl;
+            }
+          }
+
+          if (subjectElement) {
+            subjectElement.textContent = subject;
+          }
+
+          if (bodyElement) {
+            bodyElement.textContent = body;
+          }
+
+          if (helperElement) {
+            helperElement.textContent = config.helperNote;
+          }
+
+          if (copyBlock) {
+            copyBlock.hidden = config.emailMode === "none";
+          }
+
+          if (actions) {
+            actions.hidden = config.emailMode === "none";
+          }
+
+          if (mailtoLink) {
+            const mailtoEnabled = config.emailMode === "mailto" || config.emailMode === "both";
+            mailtoLink.hidden = !mailtoEnabled;
+            if (mailtoEnabled) {
+              mailtoLink.href = buildMailto(config.defaultRecipient || "", subject, body);
+            }
+          }
+
+          if (copyButton) {
+            const copyEnabled = config.emailMode === "copy" || config.emailMode === "both";
+            copyButton.hidden = !copyEnabled;
+            copyButton.onclick = async () => {
+              try {
+                await copyText(copyPayload);
+                setStatus("Draft subject and body copied to your clipboard.", "success");
+              } catch (error) {
+                setStatus("Unable to copy the draft automatically. Copy it manually instead.", "error");
+              }
+            };
+          }
+
+          result.hidden = false;
+          setStatus("MP found.", "success");
+        } catch (error) {
+          const message = error instanceof Error ? error.message : "Unable to complete the lookup.";
+          setStatus(message, "error");
+        }
+      });
+    });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initialiseMpLookupWidgets, { once: true });
+  } else {
+    initialiseMpLookupWidgets();
+  }
+</script>
