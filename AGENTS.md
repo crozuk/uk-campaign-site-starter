@@ -21,7 +21,10 @@ npm run dev
 npm run preview
 npm run typecheck
 npm run build
+npm run build:template
 npm run build:production
+npm run deploy:live
+npm run deploy:preview
 npm run prepublish:check
 npm run og:generate
 ```

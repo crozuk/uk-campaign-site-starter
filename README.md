@@ -47,7 +47,10 @@ Useful commands:
 ```bash
 npm run typecheck
 npm run build
+npm run build:template
 npm run build:production
+npm run deploy:live
+npm run deploy:preview
 npm run prepublish:check
 npm run og:generate
 ```
@@ -201,6 +204,13 @@ Default `npm run build` uses preview mode so the starter still builds locally. F
 
 ```bash
 PUBLISH_CHECK_MODE=production npm run build
+```
+
+For this template repo specifically, the manual Cloudflare deploy commands intentionally use development-mode checks so demo markers do not block your working preview:
+
+```bash
+npm run deploy:live
+npm run deploy:preview
 ```
 
 ## Cloudflare Pages deployment
