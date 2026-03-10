@@ -45,7 +45,7 @@ type SocialLink = {
 };
 
 export const siteConfig = {
-  demoNotice: "EXAMPLE_DEMO CONTENT",
+  demoNotice: "FICTIONAL DEMO SITE",
   campaignName: "Fair Bills UK",
   tagline: "Transparent essential bills. Stronger consumer protection. Warmer homes.",
   shortSummary:

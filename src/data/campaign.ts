@@ -16,16 +16,19 @@ export const campaignContent = {
   },
   issueCards: [
     {
+      icon: "scale",
       title: "Essential charges are too hard to follow",
       summary:
         "Bills often combine standing charges, service fees, debt recovery, and tariff changes in ways that make comparison difficult for ordinary households.",
     },
     {
+      icon: "building-bank",
       title: "People in difficulty face the steepest pathways",
       summary:
         "Households already juggling debt or unstable income can end up facing the least flexible payment options and the weakest support.",
     },
     {
+      icon: "gavel",
       title: "Complaint routes still feel stacked against users",
       summary:
         "When things go wrong, people often face fragmented support, confusing evidence requests, and slow escalation between provider, regulator, and ombuds services.",

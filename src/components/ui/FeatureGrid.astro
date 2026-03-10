@@ -1,5 +1,8 @@
 ---
+import Icon from "@components/ui/Icon.astro";
+
 type FeatureItem = {
+  icon?: string;
   title: string;
   summary: string;
 };
@@ -13,6 +16,11 @@ const { items } = Astro.props as {
   {
     items.map((item) => (
       <article class="card surface">
+        {item.icon && (
+          <span class="card__icon-badge card__icon-badge--soft">
+            <Icon name={item.icon} />
+          </span>
+        )}
         <h3 class="card__title">{item.title}</h3>
         <p class="muted">{item.summary}</p>
       </article>

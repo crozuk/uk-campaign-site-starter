@@ -2,6 +2,7 @@
 import Reveal from "@components/motion/Reveal.astro";
 import Button from "@components/ui/Button.astro";
 import Card from "@components/ui/Card.astro";
+import Icon from "@components/ui/Icon.astro";
 import { homepageActions } from "@data/actions";
 ---
 
@@ -21,10 +22,14 @@ import { homepageActions } from "@data/actions";
         homepageActions.map((action, index) => (
           <Reveal delay={index * 80}>
             <Card>
+              <span class="card__icon-badge card__icon-badge--soft">
+                <Icon name={action.icon} />
+              </span>
               <h3 class="card__title">{action.title}</h3>
               <p class="muted">{action.summary}</p>
               <div>
                 <Button href={action.href} variant={action.emphasis === "strong" ? "strong" : "soft"}>
+                  <Icon name={action.icon} />
                   {action.label}
                 </Button>
               </div>

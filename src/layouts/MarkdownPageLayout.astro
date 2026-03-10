@@ -21,7 +21,7 @@ const actions = ctaLabel && ctaHref ? [{ label: ctaLabel, href: ctaHref, variant
 
 <BaseLayout title={title} description={description} pathname={pathname}>
   <PageHero eyebrow={eyebrow} title={title} summary={summary} actions={actions} />
-  <section>
+  <section class="page-body">
     <div class="container page-shell">
       <article class="surface prose content-panel">
         <slot />

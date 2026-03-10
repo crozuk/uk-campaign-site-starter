@@ -1,5 +1,6 @@
 ---
 import Button from "@components/ui/Button.astro";
+import Icon from "@components/ui/Icon.astro";
 import { mpEmailTemplates } from "@data/actions";
 import { siteConfig } from "@data/site";
 
@@ -49,6 +50,7 @@ const componentConfig = {
         required
       />
       <Button type="submit" variant={siteConfig.mpLookup.ctaStyle === "strong" ? "strong" : "soft"}>
+        <Icon name="search" />
         Find my MP
       </Button>
     </div>
@@ -73,8 +75,14 @@ const componentConfig = {
     </div>
 
     <div class="cluster" data-mp-links>
-      <a data-mp-profile href="#" hidden rel="noreferrer" target="_blank">Parliament profile</a>
-      <a data-mp-contact href="#" hidden rel="noreferrer" target="_blank">Parliament contact page</a>
+      <a data-mp-profile href="#" hidden rel="noreferrer" target="_blank">
+        <Icon name="news" />
+        Parliament profile
+      </a>
+      <a data-mp-contact href="#" hidden rel="noreferrer" target="_blank">
+        <Icon name="external-link" />
+        Parliament contact page
+      </a>
     </div>
 
     <div class="mp-result__copy" data-mp-copy-block hidden>
@@ -86,8 +94,14 @@ const componentConfig = {
     </div>
 
     <div class="mp-result__actions" data-mp-actions hidden>
-      <a class="button button--primary" data-mp-mailto href="#" hidden>Open draft email</a>
-      <button class="button button--ghost" data-mp-copy type="button" hidden>Copy subject and body</button>
+      <a class="button button--primary" data-mp-mailto href="#" hidden>
+        <Icon name="mail" />
+        Open draft email
+      </a>
+      <button class="button button--ghost" data-mp-copy type="button" hidden>
+        <Icon name="copy" />
+        Copy subject and body
+      </button>
     </div>
   </div>
 

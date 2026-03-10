@@ -1,0 +1,71 @@
+---
+import arrowRight from "@assets/icons/arrow-right.svg?raw";
+import buildingBank from "@assets/icons/building-bank.svg?raw";
+import chartBar from "@assets/icons/chart-bar.svg?raw";
+import copy from "@assets/icons/copy.svg?raw";
+import externalLink from "@assets/icons/external-link.svg?raw";
+import fileText from "@assets/icons/file-text.svg?raw";
+import gavel from "@assets/icons/gavel.svg?raw";
+import home2 from "@assets/icons/home-2.svg?raw";
+import mail from "@assets/icons/mail.svg?raw";
+import mapPin from "@assets/icons/map-pin.svg?raw";
+import news from "@assets/icons/news.svg?raw";
+import scale from "@assets/icons/scale.svg?raw";
+import search from "@assets/icons/search.svg?raw";
+import speakerphone from "@assets/icons/speakerphone.svg?raw";
+import users from "@assets/icons/users.svg?raw";
+
+type IconName =
+  | "arrow-right"
+  | "building-bank"
+  | "chart-bar"
+  | "copy"
+  | "external-link"
+  | "file-text"
+  | "gavel"
+  | "home-2"
+  | "mail"
+  | "map-pin"
+  | "news"
+  | "scale"
+  | "search"
+  | "speakerphone"
+  | "users";
+
+const icons: Record<IconName, string> = {
+  "arrow-right": arrowRight,
+  "building-bank": buildingBank,
+  "chart-bar": chartBar,
+  copy,
+  "external-link": externalLink,
+  "file-text": fileText,
+  gavel,
+  "home-2": home2,
+  mail,
+  "map-pin": mapPin,
+  news,
+  scale,
+  search,
+  speakerphone,
+  users,
+};
+
+const {
+  name,
+  label,
+  class: className,
+} = Astro.props as {
+  name: IconName;
+  label?: string;
+  class?: string;
+};
+
+const svg = icons[name];
+---
+
+<span
+  class:list={["icon", className]}
+  aria-hidden={label ? undefined : "true"}
+  aria-label={label}
+  set:html={svg}
+></span>

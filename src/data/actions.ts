@@ -3,6 +3,7 @@ export type CampaignAction = {
   summary: string;
   label: string;
   href: string;
+  icon: string;
   emphasis?: "soft" | "strong";
 };
 
@@ -13,6 +14,7 @@ export const homepageActions = [
       "Use the built-in postcode lookup to find the right constituency and open a ready-to-adapt draft.",
     label: "Contact your MP",
     href: "/contact-your-mp",
+    icon: "mail",
     emphasis: "strong",
   },
   {
@@ -21,6 +23,7 @@ export const homepageActions = [
       "Use the starter's reusable blocks for resident briefings, local events, or volunteer explainers.",
     label: "See ways to get involved",
     href: "/get-involved",
+    icon: "users",
     emphasis: "soft",
   },
   {
@@ -29,6 +32,7 @@ export const homepageActions = [
       "Turn the issue framing, stats, and blog layout into a client-ready campaign narrative with minimal rewiring.",
     label: "Read the campaign case",
     href: "/about",
+    icon: "file-text",
     emphasis: "soft",
   },
 ] as const satisfies CampaignAction[];

@@ -1,6 +1,7 @@
 ---
 import Reveal from "@components/motion/Reveal.astro";
 import Card from "@components/ui/Card.astro";
+import Icon from "@components/ui/Icon.astro";
 import { campaignContent } from "@data/campaign";
 ---
 
@@ -20,6 +21,9 @@ import { campaignContent } from "@data/campaign";
         campaignContent.issueCards.map((item, index) => (
           <Reveal delay={index * 70}>
             <Card>
+              <span class="card__icon-badge">
+                <Icon name={item.icon} />
+              </span>
               <h3 class="card__title">{item.title}</h3>
               <p class="muted">{item.summary}</p>
             </Card>

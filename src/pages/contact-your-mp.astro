@@ -9,16 +9,19 @@ const disabled = !isPageEnabled("contact-your-mp");
 
 const steps = [
   {
+    icon: "map-pin",
     title: "Find the right constituency",
     summary:
       "The Pages Function looks up a postcode, resolves the parliamentary constituency, and returns the current MP in a normalised JSON shape.",
   },
   {
+    icon: "mail",
     title: "Open a draft or copy the message",
     summary:
       "Email behaviour is driven by config, so campaigns can use mailto, copy-to-clipboard, or both without editing the UI component.",
   },
   {
+    icon: "news",
     title: "Link back to Parliament",
     summary:
       "Where available, supporters get a direct Parliament profile link and a contact page link so they can verify details before sending.",
@@ -45,7 +48,7 @@ const steps = [
 
   {
     !disabled && (
-      <section>
+      <section class="page-body">
         <div class="container stack">
           <MpLookupForm
             title="Find your MP by postcode"

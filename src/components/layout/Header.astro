@@ -5,6 +5,13 @@ import Button from "@components/ui/Button.astro";
 
 const pathname = Astro.url.pathname;
 const navigation = getVisibleNavigationItems();
+const isCurrentPath = (href: string) => {
+  if (href === "/") {
+    return pathname === "/";
+  }
+
+  return pathname === href || pathname.startsWith(`${href}/`);
+};
 ---
 
 <header class="site-header">
@@ -18,7 +25,7 @@ const navigation = getVisibleNavigationItems();
     <nav class="site-nav" aria-label="Primary">
       {
         navigation.map((item) => (
-          <a href={item.href} aria-current={pathname === item.href ? "page" : undefined}>
+          <a href={item.href} aria-current={isCurrentPath(item.href) ? "page" : undefined}>
             {item.label}
           </a>
         ))
@@ -30,19 +37,29 @@ const navigation = getVisibleNavigationItems();
     </Button>
 
     <details class="site-menu">
-      <summary>Menu</summary>
-      <nav aria-label="Mobile">
-        {
-          navigation.map((item) => (
-            <a href={item.href} aria-current={pathname === item.href ? "page" : undefined}>
-              {item.label}
-            </a>
-          ))
-        }
-        <Button href={siteConfig.ctas.primary.href} variant="primary">
-          {siteConfig.ctas.primary.label}
-        </Button>
-      </nav>
+      <summary>
+        <span>Menu</span>
+        <span class="site-menu__icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+        </span>
+      </summary>
+      <div class="site-menu__panel">
+        <nav class="site-menu__nav" aria-label="Mobile">
+          {
+            navigation.map((item) => (
+              <a href={item.href} aria-current={isCurrentPath(item.href) ? "page" : undefined}>
+                {item.label}
+              </a>
+            ))
+          }
+        </nav>
+        <div class="site-menu__actions">
+          <Button href={siteConfig.ctas.primary.href} variant="primary">
+            {siteConfig.ctas.primary.label}
+          </Button>
+        </div>
+      </div>
     </details>
   </div>
 </header>
